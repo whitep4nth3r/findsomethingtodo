@@ -1,25 +1,66 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-// if not signed in
-// do sign in
-
-
-
 ---
+<script>
+	import Clerk from '@clerk/clerk-js';
+
+	let signedIn = false;
+
+	const clerkFrontendApi = "pk_test_dW5iaWFzZWQtY2hpY2tlbi03NS5jbGVyay5hY2NvdW50cy5kZXYk";
+	const clerk = new Clerk(clerkFrontendApi);
+	await clerk.load({});
+
+	const session = clerk.session;
+	const signedInEl = document.querySelector('[data-signed-in]');
+	const hiddenInput = document.querySelector('[data-user-id]');
+
+	if (session === null) {
+		window.location.href = "/sign-in?return=add";
+	}
+
+	if (session !== null) {
+		signedInEl.style.display = "block";
+		hiddenInput.value = session.user.id;
+	}
+</script>
 
 <Layout title="Add Something ToDo" description="TODO">
 	<main>
-		<h1>Add Something ToDo</h1>
 
-		<form action="/add-todo" method="POST">
-			<label for="todo">Your ToDo</label>
-			<input id="todo" name="todo" type="text" value="" placeholder="Go for a walk" required>
-			<input type="hidden" name="user_id" value="USER_ID_WHEN_AVAILABLE" >
-			<button type="submit">Add ToDo</button>
-		</form>
+		<script>
+			const form = document.querySelector('form');
+			console.log(form)
+			
 
-		<p>Fun fact, you'll never see your ToDo again. It's gone forever.</p>
-	
+			// form.addEventListener('submit', async (e) => {
+			// 	console.log('FORM SUBMITTING')
+				
+			// 	e.preventDefault();
+
+			// 	const formData = new FormData(e.target);
+			// 	const response = await fetch("/api/add-todo", {
+			// 			method: "POST",
+			// 			body: formData,
+			// 		});
+			// 	});
+		</script>
+		
+		<div data-signed-in>
+			<h1>Add Something ToDo</h1>
+			<form action="/api/add-todo" method="POST" >
+				<label for="todo">Your ToDo</label>
+				<input id="todo" name="todo" type="text" value="" placeholder="Go for a walk" required>
+				<input type="hidden" name="user_id" value="" data-user-id>
+				<button type="submit">Add ToDo</button>
+			</form>
+
+			<p>Fun fact, you'll never see your ToDo again. It's gone forever.</p>
+		</div>
 	</main>
 </Layout>
+
+<style>
+	[data-signed-in] {
+		display: none;
+	}
+</style>

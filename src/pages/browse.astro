@@ -2,33 +2,75 @@
 import Layout from '../layouts/Layout.astro';
 import { ToDo } from '../components/ToDo.jsx';
 
-// if not signed in
-// do sign in
-
 // if query param = success
 // show success message
 
-// get all todos from database
-// where userID is NOT current signed in user
+// query DB for all todos NOT by current user
+
 
 ---
+
+<script>
+	import Clerk from '@clerk/clerk-js';
+
+	let signedIn = false;
+
+	const clerkFrontendApi = "pk_test_dW5iaWFzZWQtY2hpY2tlbi03NS5jbGVyay5hY2NvdW50cy5kZXYk";
+	const clerk = new Clerk(clerkFrontendApi);
+	await clerk.load({});
+
+	const session = clerk.session;
+
+	if (session === null) {
+		window.location.href = "/sign-in?return=browse";
+	}
+
+	// this is what we will store in DB row when user adds a todo
+	console.log(session.user.id)
+	
+
+
+	// get all todos from database
+	// where userID is NOT current signed in user
+
+	if (session !== null) {
+		document.querySelector('[data-signed-in]').style.display = "block";
+	}
+
+
+</script>
+
 
 <Layout title="Browse Find Something ToDo" description="TODO">
 	<main>
 
 		<!-- if success message -->
-		<p>Congrats! Your ToDo will be done by somebody else.</p>
+		<!-- <p>Congrats! Your ToDo will be done by somebody else.</p> -->
 		<!-- end if success message -->
-		<p>Bored?</p>
-		<p>Want to procrastinate <em>and</em> look productive?</p>
-		<h1>Find Something ToDo</h1>
 
-		<h2>What people are ToDoing</h2>
-		<p>Click it, if you did it.</p>
+		<div data-signed-in>
 
-		<ul>
-			<li><ToDo id="TODO_ID" /></li>
-		</ul>
+			<p>Bored?</p>
+			<p>Want to procrastinate <em>and</em> look productive?</p>
+			<h1>Find Something ToDo</h1>
+
+			<h2>What people are ToDoing</h2>
+			<p>Click it, if you did it.</p>
+
+			<ul>
+				<li><ToDo id="TODO_ID" numberOfTimesDone="1" client:load /></li>
+				<li><ToDo id="TODO_ID_2" numberOfTimesDone="2" client:load /></li>
+			</ul>
+
+			<a href="/add">Add a ToDo</a>
+
+		</div>
 	
 	</main>
 </Layout>
+
+<style>
+	[data-signed-in] {
+		display: none;
+	}
+</style>

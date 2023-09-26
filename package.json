@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/netlify": "^3.0.2",
     "@astrojs/react": "^3.0.2",
+    "@clerk/clerk-js": "^4.58.1",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.7",
     "astro": "^3.1.4",

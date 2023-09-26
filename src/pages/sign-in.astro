@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+
+const url = new URL(Astro.request.url);
+
+const returnUrl = `${url.origin}/${url.searchParams.get("return")}`;
+
+---
+
+
+<Layout title="Add Something ToDo" description="TODO">
+	<span id="data" data-return-url={returnUrl}></span>
+
+	<script>
+		import Clerk from '@clerk/clerk-js';
+		
+		const signInComponent = document.getElementById('sign-in');
+		const returnUrl = document.getElementById('data').dataset.returnUrl;
+
+		const clerkFrontendApi = "pk_test_dW5iaWFzZWQtY2hpY2tlbi03NS5jbGVyay5hY2NvdW50cy5kZXYk";
+		const clerk = new Clerk(clerkFrontendApi);
+
+		await clerk.load({});
+
+		clerk.mountSignIn(signInComponent, {
+			afterSignInUrl: returnUrl,
+			appearance: {
+				baseTheme: "light"
+			}
+		});
+	</script>
+
+	<main>
+		<h1>Sign in to Find Something ToDo</h1>
+		<p>Put something here about benefits of signing in</p>
+
+
+		<div
+			id="sign-in"
+		></div>
+	
+	</main>
+</Layout>
