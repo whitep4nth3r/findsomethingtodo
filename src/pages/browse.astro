@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ToDo } from '../components/ToDo.jsx';
+
+// if not signed in
+// do sign in
+
+// if query param = success
+// show success message
+
+// get all todos from database
+// where userID is NOT current signed in user
+
+---
+
+<Layout title="Browse Find Something ToDo" description="TODO">
+	<main>
+
+		<!-- if success message -->
+		<p>Congrats! Your ToDo will be done by somebody else.</p>
+		<!-- end if success message -->
+		<p>Bored?</p>
+		<p>Want to procrastinate <em>and</em> look productive?</p>
+		<h1>Find Something ToDo</h1>
+
+		<h2>What people are ToDoing</h2>
+		<p>Click it, if you did it.</p>
+
+		<ul>
+			<li><ToDo id="TODO_ID" /></li>
+		</ul>
+	
+	</main>
+</Layout>
