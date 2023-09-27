@@ -2,15 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <script>
-	import Clerk from '@clerk/clerk-js';
+	import { getSession } from "../utils/session.js"
 
-	let signedIn = false;
-
-	const clerkFrontendApi = "pk_test_dW5iaWFzZWQtY2hpY2tlbi03NS5jbGVyay5hY2NvdW50cy5kZXYk";
-	const clerk = new Clerk(clerkFrontendApi);
-	await clerk.load({});
-
-	const session = clerk.session;
+	const session = await getSession();
 	const signedInEl = document.querySelector('[data-signed-in]');
 	const hiddenInput = document.querySelector('[data-user-id]');
 

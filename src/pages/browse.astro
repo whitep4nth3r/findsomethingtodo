@@ -11,15 +11,9 @@ import { ToDo } from '../components/ToDo.jsx';
 ---
 
 <script>
-	import Clerk from '@clerk/clerk-js';
-
-	let signedIn = false;
-
-	const clerkFrontendApi = "pk_test_dW5iaWFzZWQtY2hpY2tlbi03NS5jbGVyay5hY2NvdW50cy5kZXYk";
-	const clerk = new Clerk(clerkFrontendApi);
-	await clerk.load({});
-
-	const session = clerk.session;
+	import { getSession } from "../utils/session.js"
+	
+	const session = await getSession();
 
 	if (session === null) {
 		window.location.href = "/sign-in?return=browse";
