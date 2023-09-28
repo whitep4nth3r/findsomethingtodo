@@ -1,0 +1,54 @@
+---
+const { currentPath } = Astro.props;
+---
+
+<script>
+  import { initClerk, getSession } from "../utils/session.js"
+  
+  const userButtonEl = document.getElementById('user-button');
+  const clerk = initClerk();
+  await clerk.load({});
+  const session = await getSession();
+
+  const data = document.getElementById("data");
+  const currentPath = data.getAttribute("data-current-path");
+
+  if (session === null) {
+    const href = document.createElement("a");
+    href.setAttribute("href", `/sign-in?return=${currentPath}`);
+    href.setAttribute
+    href.textContent = "Sign in";
+    userButtonEl.appendChild(href);
+  } else {
+    clerk.mountUserButton(userButtonEl as HTMLDivElement);
+  }
+  
+
+</script>
+
+<header>
+  <span id="data" data-current-path={currentPath}></span>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/browse">Browse</a>
+    <a href="/add">Add</a>
+    <div class="header__userButton" id="user-button"></div>
+  </nav>
+</header>
+
+<style>
+
+  #user-button {
+    display: block;
+  }
+
+  nav {
+		display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+		gap: 1rem;
+		justify-content: space-between;
+    align-items: center;
+    height: 6rem;
+    margin: auto auto 4rem auto;
+	}
+</style>

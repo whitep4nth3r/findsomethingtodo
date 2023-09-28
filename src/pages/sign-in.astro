@@ -1,26 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-
-const url = new URL(Astro.request.url);
-
-const returnUrl = `${url.origin}/${url.searchParams.get("return")}`;
-
 ---
 
 
 <Layout title="Add Something ToDo" description="TODO">
-	<span id="data" data-return-url={returnUrl}></span>
-
+	
 	<script>
 		import { initClerk } from "../utils/session.js"
 		
 		const signInComponent = document.getElementById('sign-in');
-		const returnUrl = document.getElementById('data').dataset.returnUrl;
-
+		const returnUrl = `${window.location.origin}/${window.location.search.replace("?return=", "")}`;
 		const clerk = initClerk();
 		await clerk.load({});
-
 		clerk.mountSignIn(signInComponent, {
 			afterSignInUrl: returnUrl,
 			appearance: {

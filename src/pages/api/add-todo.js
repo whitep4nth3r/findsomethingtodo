@@ -3,8 +3,8 @@ export const POST = async ({ request, redirect }) => {
   const user_id = data.get("user_id");
   const todo = data.get("todo");
 
-  console.log(user_id);
-  console.log(todo);
+  // console.log(user_id);
+  // console.log(todo);
 
   // Validate the data - you'll probably want to do more than this
   // if (!todo) {

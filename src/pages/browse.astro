@@ -10,40 +10,30 @@ import { ToDo } from '../components/ToDo.jsx';
 
 ---
 
-<script>
-	import { getSession } from "../utils/session.js"
-	
-	const session = await getSession();
-
-	if (session === null) {
-		window.location.href = "/sign-in?return=browse";
-	}
-
-	// this is what we will store in DB row when user adds a todo
-	console.log(session.user.id)
-	
-
-
-	// get all todos from database
-	// where userID is NOT current signed in user
-
-	if (session !== null) {
-		document.querySelector('[data-signed-in]').style.display = "block";
-	}
-
-
-</script>
-
-
 <Layout title="Browse Find Something ToDo" description="TODO">
+	<script>
+		import { getSession } from "../utils/session.js"
+		
+		const session = await getSession();
+		// this is what we will store in DB row when user adds a todo
+		// console.log(session.user.id)
+		if (session === null) {
+			window.location.href = "/sign-in?return=browse";
+		}
+		// get all todos from database
+		// where userID is NOT current signed in user
+		if (session !== null) {
+			document.querySelector('[data-signed-in]').style.display = "block";
+			document.querySelector('[data-not-signed-in]').style.display = "none";
+		}
+
+	</script>
 	<main>
 
 		<!-- if success message -->
 		<!-- <p>Congrats! Your ToDo will be done by somebody else.</p> -->
 		<!-- end if success message -->
-
 		<div data-signed-in>
-
 			<p>Bored?</p>
 			<p>Want to procrastinate <em>and</em> look productive?</p>
 			<h1>Find Something ToDo</h1>

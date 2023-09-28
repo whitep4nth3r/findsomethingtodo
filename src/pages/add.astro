@@ -5,8 +5,8 @@ import Layout from '../layouts/Layout.astro';
 	import { getSession } from "../utils/session.js"
 
 	const session = await getSession();
-	const signedInEl = document.querySelector('[data-signed-in]');
-	const hiddenInput = document.querySelector('[data-user-id]');
+	const signedInEl: HTMLElement = document.querySelector('[data-signed-in]');
+	const hiddenInput: HTMLInputElement = document.querySelector('[data-user-id]');
 
 	if (session === null) {
 		window.location.href = "/sign-in?return=add";
@@ -56,5 +56,21 @@ import Layout from '../layouts/Layout.astro';
 <style>
 	[data-signed-in] {
 		display: none;
+		text-align: center;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		justify-content: center;
+	}
+
+	label {
+		display: block;
+	}
+
+	button {
+		display: inline-block;
 	}
 </style>

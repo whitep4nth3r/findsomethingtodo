@@ -1,5 +1,8 @@
 ---
+import Header from "../components/Header.astro";
 const { title, description } = Astro.props;
+const { pathname } = Astro.url;
+
 ---
 
 <!doctype html>
@@ -13,9 +16,19 @@ const { title, description } = Astro.props;
 		<meta name="description" content={description} />
 	</head>
 	<body>
+		<Header currentPath={pathname} />
 		<slot />
 	</body>
 </html>
+
 <style is:global>
 	
+</style>
+
+<style>
+	body {
+		max-width: 400px;
+		margin:auto;
+		padding: clamp(1rem, 2vw, 2rem);
+	}
 </style>
