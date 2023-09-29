@@ -1,13 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { ToDo } from '../components/ToDo.jsx';
+import { GET } from './api/get-todos.json.js'
+import { ToDos } from "../components/ToDos.jsx"
 
-// if query param = success
-// show success message
-
-// query DB for all todos NOT by current user
-
-
+const response = await GET(Astro)
+const data = await response.json()
 ---
 
 <Layout title="Browse Find Something ToDo" description="TODO">
@@ -15,18 +12,13 @@ import { ToDo } from '../components/ToDo.jsx';
 		import { getSession } from "../utils/session.js"
 		
 		const session = await getSession();
-		// this is what we will store in DB row when user adds a todo
-		// console.log(session.user.id)
 		if (session === null) {
 			window.location.href = "/sign-in?return=browse";
 		}
-		// get all todos from database
-		// where userID is NOT current signed in user
+
 		if (session !== null) {
 			document.querySelector('[data-signed-in]').style.display = "block";
-			document.querySelector('[data-not-signed-in]').style.display = "none";
 		}
-
 	</script>
 	<main>
 
@@ -41,13 +33,9 @@ import { ToDo } from '../components/ToDo.jsx';
 			<h2>What people are ToDoing</h2>
 			<p>Click it, if you did it.</p>
 
-			<ul>
-				<li><ToDo id="TODO_ID" numberOfTimesDone="1" client:load /></li>
-				<li><ToDo id="TODO_ID_2" numberOfTimesDone="2" client:load /></li>
-			</ul>
-
 			<a href="/add">Add a ToDo</a>
 
+			<ToDos todos={data.todos} limit={null} client:load />
 		</div>
 	
 	</main>

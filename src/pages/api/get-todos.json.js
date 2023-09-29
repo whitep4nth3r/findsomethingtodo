@@ -11,7 +11,7 @@ async function initDatabase() {
 export async function GET({ params, request }) {
   const mongo = await initDatabase();
   const todos = mongo.db("findsomethingtodo").collection("todos");
-  const todosNotByUser = await todos.find().toArray();
+  const todosNotByUser = await todos.find({ flagged: false }).toArray();
 
   return new Response(
     JSON.stringify({

@@ -3,8 +3,9 @@ import { getSession } from "../utils/session.js";
 import { ToDo } from "./ToDo.jsx";
 
 export function ToDos({ todos, limit }) {
-  const [filteredTodos, setFilteredTodos] = useState(todos);
+  const [filteredTodos, setFilteredTodos] = useState([]);
   const [userId, setUserId] = useState(null);
+  const [showActions, setShowActions] = useState(false);
 
   useEffect(() => {
     // declare the data fetching function
@@ -13,7 +14,16 @@ export function ToDos({ todos, limit }) {
       const userId = session !== null ? session.user.id : "12345";
       setUserId(userId);
 
-      const filtered = todos.filter((todo) => todo.user_id !== userId).splice(0, limit);
+      if (session !== null) {
+        setShowActions(true);
+      }
+
+      let filtered = todos.filter((todo) => todo.user_id !== userId);
+
+      if (limit !== null) {
+        filtered = filtered.splice(0, limit);
+      }
+
       setFilteredTodos(filtered);
     };
 
@@ -25,7 +35,7 @@ export function ToDos({ todos, limit }) {
     <ul>
       {filteredTodos.map((item) => (
         <li key={item._id}>
-          <ToDo todo={item} client:load />
+          <ToDo todo={item} showActions={showActions} client:load />
         </li>
       ))}
     </ul>

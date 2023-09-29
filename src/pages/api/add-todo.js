@@ -1,7 +1,10 @@
 export const POST = async ({ request, redirect }) => {
   const data = await request.formData();
   const user_id = data.get("user_id");
+
   const todo = data.get("todo");
+
+  // npm install bad-words to filter
 
   // console.log(user_id);
   // console.log(todo);
