@@ -1,7 +1,9 @@
 import { useState } from "react";
 
-export const ToDo = ({ id, numberOfTimesDone }) => {
-  const [timesDone, setTimesDone] = useState(numberOfTimesDone);
+export const ToDo = ({ todo }) => {
+  const { _id, description, timesDone, flagged, date_created, user_id } = todo;
+
+  const [timesDoneNo, setTimesDoneNo] = useState(timesDone);
   const [isLoading, setIsLoading] = useState(false);
 
   function markAsDone() {
@@ -10,7 +12,7 @@ export const ToDo = ({ id, numberOfTimesDone }) => {
 
     // fake the API call time right now
     setTimeout(() => {
-      const newTimesDone = parseInt(timesDone, 10) + 1;
+      const newTimesDone = parseInt(timesDoneNo, 10) + 1;
       setTimesDone(newTimesDone); // add data from API call
       setIsLoading(false);
     }, 1000);
@@ -18,8 +20,9 @@ export const ToDo = ({ id, numberOfTimesDone }) => {
 
   return (
     <div>
-      <p>Here is a to do with id: {id}</p>
-      <p>Number of times done: {timesDone}</p>
+      <p>Here is a to do with id: {_id}</p>
+      <p>{description}</p>
+      <p>Number of times done: {timesDoneNo}</p>
       <button onClick={() => markAsDone()}>
         {isLoading ? "Loading..." : ""}
         {!isLoading ? "I did this" : ""}

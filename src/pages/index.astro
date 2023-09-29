@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { GET } from './api/get-todos.json.js'
+import { ToDos } from "../components/ToDos.jsx"
 
-// get 9 most recent todos
-// call /get-recent-todos
+const response = await GET(Astro)
+const data = await response.json()
 ---
 
 <Layout title="Find Something ToDo" description="TODO">
@@ -13,9 +15,7 @@ import Layout from '../layouts/Layout.astro';
 
 		<h2>What people are ToDoing</h2>
 
-		<ul>
-			<li>to do 1-9</li>
-		</ul>
+		<ToDos todos={data.todos} limit="9" client:load />
 
 		<h3>Want to join the party?</h3>
 
