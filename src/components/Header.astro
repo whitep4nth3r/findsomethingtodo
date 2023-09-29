@@ -11,16 +11,20 @@ const { currentPath } = Astro.props;
   const session = await getSession();
 
   const data = document.getElementById("data");
-  const currentPath = data.getAttribute("data-current-path");
+  const path = data.getAttribute("data-current-path");
+  const returnPath = path === "/" ? "" : path;
 
   if (session === null) {
     const href = document.createElement("a");
-    href.setAttribute("href", `/sign-in?return=${currentPath}`);
+    href.setAttribute("href", `/sign-in?return=${returnPath}`);
     href.setAttribute
     href.textContent = "Sign in";
     userButtonEl.appendChild(href);
   } else {
-    clerk.mountUserButton(userButtonEl as HTMLDivElement);
+    clerk.mountUserButton(userButtonEl as HTMLDivElement, {
+      signInUrl: `${window.location.origin}`,
+      afterSignOutUrl: `${window.location.origin}`}
+    );
   }
   
 
