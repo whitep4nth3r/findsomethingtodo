@@ -1,0 +1,72 @@
+.topRow {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-areas:
+    "desc done"
+    "completed completed";
+  gap: 1rem;
+}
+
+.description {
+  grid-area: desc;
+  font-size: 1.6rem;
+  color: white;
+}
+
+.completed {
+  grid-area: completed;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 2;
+}
+
+.done {
+  flex-grow: 0;
+  grid-area: done;
+  appearance: none;
+  border-width: 0;
+  background-color: var(--stone);
+  color: var(--red);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  text-align: center;
+  height: max-content;
+  cursor: pointer;
+}
+
+.done:focus,
+.done:focus-visible {
+  outline: transparent;
+  outline-style: solid;
+  box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.done[disabled] {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.report {
+  appearance: none;
+  border-width: 0;
+  background-color: transparent;
+  display: inline;
+  width: max-content;
+  color: var(--yellow);
+  font-size: 1;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  border-radius: 0.75rem;
+}
+
+.report:focus,
+.report:focus-visible {
+  outline: transparent;
+  outline-style: solid;
+  box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
