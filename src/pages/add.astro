@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
 ---
 <script>
 	import { getSession } from "../utils/session.js"
@@ -20,23 +21,37 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Add Something ToDo" description="TODO">
 	<main>
-
 		<script>
+			import Filter from "bad-words";
 			const form = document.querySelector('form');
-			console.log(form)
-			
+			const warning = document.querySelector('[data-warning]');
 
-			// form.addEventListener('submit', async (e) => {
-			// 	console.log('FORM SUBMITTING')
-				
-			// 	e.preventDefault();
+			const input = document.querySelector("input");
 
-			// 	const formData = new FormData(e.target);
-			// 	const response = await fetch("/api/add-todo", {
-			// 			method: "POST",
-			// 			body: formData,
-			// 		});
-			// 	});
+			input.addEventListener("keyup", (e) => {
+				if (e.target.value === "") {
+					warning.style.display = "none";
+				}
+			})
+
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+
+				const formData = new FormData(e.target);
+
+				const filter = new Filter();
+				const newTodo = formData.get('todo');
+				const processedToDo = filter.clean(newTodo);
+
+				if (processedToDo !== newTodo) {
+					warning.style.display = "block";
+				} else {
+					const response = await fetch("/api/add-todo", {
+						method: "POST",
+						body: formData,
+					});
+				}
+			});
 
 			
 		</script>
@@ -47,6 +62,7 @@ import Layout from '../layouts/Layout.astro';
 			<form action="/api/add-todo" method="POST" >
 				<label for="todo">Your ToDo, make it <em>productive!</em></label>
 				<input id="todo" name="todo" type="text" value="" placeholder="Be the best version of yourself" required>
+				<p data-warning>⚠️ Please don't use bad words!</p>
 				<input type="hidden" name="user_id" value="" data-user-id>
 				<button type="submit">Add ToDo</button>
 			</form>
@@ -59,6 +75,15 @@ import Layout from '../layouts/Layout.astro';
 <style>
 	[data-signed-in] {
 		display: none;
+	}
+
+	[data-warning] {
+		display: none;
+		color: #ffffff;
+		background-color: var(--red);
+		font-size: 1.2rem;
+		border-radius: 0.5rem;
+		padding: 0.5rem;
 	}
 
 	p {

@@ -1,25 +1,33 @@
+import { MongoClient } from "mongodb";
+
+async function initDatabase() {
+  const mongoClient = await MongoClient.connect(import.meta.env.DB_CONN_STRING, {
+    appName: "findsomethingtodo",
+  });
+
+  return mongoClient;
+}
+
 export const POST = async ({ request, redirect }) => {
   const data = await request.formData();
   const user_id = data.get("user_id");
-
   const todo = data.get("todo");
 
-  // npm install bad-words to filter
-
-  // console.log(user_id);
-  // console.log(todo);
-
-  // Validate the data - you'll probably want to do more than this
-  // if (!todo) {
-  //   return new Response(
-  //     JSON.stringify({
-  //       message: "Missing required fields",
-  //     }),
-  //     { status: 400 },
-  //   );
-  // }
-
   // add stuff to DB
+  const newTodo = {
+    description: todo,
+    user_id: user_id,
+    times_done: 0,
+    date_created: new Date(),
+    flagged: false,
+  };
 
-  return redirect("/browse?success=true", 302);
+  const mongo = await initDatabase();
+  const todos = mongo.db("findsomethingtodo").collection("todos");
+
+  const response = await todos.insertOne(newTodo);
+
+  if (response.acknowledged === true) {
+    return redirect("/browse?success=true", 302);
+  }
 };

@@ -5,6 +5,11 @@ import { ToDos } from "../components/ToDos.jsx"
 
 const response = await GET(Astro)
 const data = await response.json()
+
+const { url } = Astro;
+const success = url.searchParams.get("success");
+
+
 ---
 
 <Layout title="Browse Find Something ToDo" description="TODO">
@@ -22,9 +27,9 @@ const data = await response.json()
 	</script>
 	<main>
 
-		<!-- if success message -->
-		<!-- <p>Congrats! Your ToDo will be done by somebody else.</p> -->
-		<!-- end if success message -->
+		<p>Congrats! Your ToDo will be done by somebody else.</p>
+
+
 		<div data-signed-in>
 			<h1>Browse Something ToDo</h1>
 			<p>Click it, if you did it!</p>
