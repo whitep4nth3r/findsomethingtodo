@@ -19,6 +19,7 @@ const { currentPath } = Astro.props;
     href.setAttribute("href", `/sign-in?return=${returnPath}`);
     href.setAttribute
     href.textContent = "Sign in";
+    href.setAttribute("class", path === "/sign-in" ? "active" : "");
     userButtonEl.appendChild(href);
   } else {
     clerk.mountUserButton(userButtonEl as HTMLDivElement, {
@@ -40,6 +41,30 @@ const { currentPath } = Astro.props;
     <div class="header__userButton" id="user-button"></div>
   </nav>
 </header>
+
+<style is:global>
+  nav a {
+    color: var(--stone);
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+  }
+
+  nav a.active {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--yellow);
+    text-decoration-thickness: 0.2rem;
+    text-underline-offset: 0.4rem;
+  }
+
+  nav a:focus, nav a:focus-visible {
+    outline: transparent;
+    outline-style: solid;
+    box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+</style>
 
 <style>
   #user-button {
@@ -63,26 +88,4 @@ const { currentPath } = Astro.props;
     margin: auto auto 4rem auto;
     text-align: center;
 	}
-
-  nav a {
-    color: var(--stone);
-    text-decoration: none;
-    font-size: 1.2rem;
-    border-radius: 0.5rem;
-  }
-
-  nav a.active {
-    text-decoration: underline;
-    text-decoration-style: wavy;
-    text-decoration-color: var(--yellow);
-    text-decoration-thickness: 0.2rem;
-    text-underline-offset: 0.4rem;
-  }
-
-  nav a:focus, nav a:focus-visible {
-    outline: transparent;
-    outline-style: solid;
-    box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
-    transition: box-shadow 0.2s ease-in-out;
-  }
 </style>
