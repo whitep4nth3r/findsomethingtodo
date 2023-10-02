@@ -56,7 +56,7 @@ export const ToDo = ({ todo, showActions }) => {
           </button>
         )}
       </div>
-      <button className={Styles.report}> Report</button>
+      <button className={Styles.report}>Report TODO</button>
     </>
   );
 };

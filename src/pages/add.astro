@@ -43,14 +43,15 @@ import Layout from '../layouts/Layout.astro';
 		
 		<div data-signed-in>
 			<h1>Add Something ToDo</h1>
+			<p>Offload those tasks!</p>
 			<form action="/api/add-todo" method="POST" >
-				<label for="todo">Your ToDo</label>
-				<input id="todo" name="todo" type="text" value="" placeholder="Go for a walk" required>
+				<label for="todo">Your ToDo, make it <em>productive!</em></label>
+				<input id="todo" name="todo" type="text" value="" placeholder="Be the best version of yourself" required>
 				<input type="hidden" name="user_id" value="" data-user-id>
 				<button type="submit">Add ToDo</button>
 			</form>
 
-			<p>Fun fact, you'll never see your ToDo again. It's gone forever.</p>
+			<p>Fun fact, <em>you'll</em> never see <em>your</em> ToDo again. It's gone forever. You can relax, now!</p>
 		</div>
 	</main>
 </Layout>
@@ -60,12 +61,56 @@ import Layout from '../layouts/Layout.astro';
 		display: none;
 	}
 
+	p {
+		line-height: 1.8;
+	}
+
 	form {
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
 		justify-content: center;
+		margin-top: 2rem;
 	}
+
+	input {
+		padding: 0.75rem;
+		font-size: 1.4rem;
+		font-family: var(--font-body);
+		border: 0.25rem solid var(--yellow);
+		border-radius: 1rem;
+		color: var(--green-dark);
+	}
+
+	input:focus {
+		outline: transparent;
+		outline-style: solid;
+		box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
+		transition: box-shadow 0.2s ease-in-out;
+	}
+
+	button {
+		appearance: none;
+		border-width: 0;
+		background-color: var(--stone);
+		color: var(--red);
+		font-family: var(--font-heading);
+		font-size: 2rem;
+		text-decoration: none;
+		padding: 0.5rem 1rem;
+		border-radius: 2rem;
+		text-align: center;
+		display: block;
+		margin-bottom: 2rem;
+	}
+
+	button:focus, button:focus-visible {
+		outline: transparent;
+    outline-style: solid;
+    box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
+    transition: box-shadow 0.2s ease-in-out;
+	}
+
 
 	label {
 		display: block;
