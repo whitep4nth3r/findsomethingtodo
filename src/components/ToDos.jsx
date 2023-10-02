@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getSession } from "../utils/session.js";
 import { ToDo } from "./ToDo.jsx";
+import Styles from "./ToDos.module.css";
 
 export function ToDos({ todos, limit }) {
   const [filteredTodos, setFilteredTodos] = useState([]);
@@ -32,9 +33,9 @@ export function ToDos({ todos, limit }) {
   }, []);
 
   return (
-    <ul>
+    <ul className={Styles.ul}>
       {filteredTodos.map((item) => (
-        <li key={item._id}>
+        <li className={Styles.li} key={item._id}>
           <ToDo todo={item} showActions={showActions} client:load />
         </li>
       ))}

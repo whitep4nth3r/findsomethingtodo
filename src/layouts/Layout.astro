@@ -12,6 +12,10 @@ const { pathname } = Astro.url;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪴</text></svg>">
 
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Young+Serif&display=swap" rel="stylesheet">
+
 		<title>{title}</title>
 		<meta name="description" content={description} />
 	</head>
@@ -19,16 +23,73 @@ const { pathname } = Astro.url;
 		<Header currentPath={pathname} />
 		<slot />
 	</body>
+	<footer><p>&copy; <a href="https://whitep4nth3r.com">Salma Alam-Naylor</a>, also I have no idea what I am doing</p></footer>
 </html>
 
 <style is:global>
 	
 </style>
 
-<style>
+<style is:global>
+	:root {
+		--green-dark: #2d5134;
+		--green-mid: #6a994e;
+		--green-light: #a7c957;
+		--stone: #f2e8cf;
+		--red: #822f31;
+		--yellow: #f4e285;
+
+		--font-heading: 'Young Serif', serif;
+		--font-body: 'IBM Plex Mono', monospace;
+	}
+
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	html {
+		font-size: 100%;
+	}
+
 	body {
-		max-width: 400px;
+		max-width: 600px;
 		margin:auto;
 		padding: clamp(1rem, 2vw, 2rem);
+		background-color: var(--green-dark);
+		color: var(--stone);
+		font-family: var(--font-body);
 	}
+
+	h1 {
+		font-family: var(--font-heading);
+	}
+	
+	h1 {
+		font-size: 2.8rem;
+		line-height: 1.8;
+	}
+
+	p {
+		font-size: 1.2rem;
+	}
+
+	footer p {
+		font-size: 0.8rem;
+		text-align: center;
+	}
+
+	footer p a {
+		color: inherit;
+		border-radius: 0.5rem;
+	}
+
+	footer p a:focus,
+	footer p a:focus-visible {
+  outline: transparent;
+  outline-style: solid;
+  box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
 </style>

@@ -32,18 +32,25 @@ const { currentPath } = Astro.props;
 
 <header>
   <span id="data" data-current-path={currentPath}></span>
+  <span class="logo" role="presentation" title="Plant in pot emoji">🪴</span>
   <nav>
-    <a href="/">Home</a>
-    <a href="/browse">Browse</a>
-    <a href="/add">Add</a>
+    <a href="/" class:list={[ { active: currentPath === "/" } ]}>Home</a>
+    <a href="/browse" class:list={[ { active: currentPath === "/browse" } ]}>Browse</a>
+    <a href="/add" class:list={[ { active: currentPath === "/add" } ]}>Add</a>
     <div class="header__userButton" id="user-button"></div>
   </nav>
 </header>
 
 <style>
-
   #user-button {
     display: block;
+    margin: auto;
+  }
+
+  .logo {
+    font-size: 6rem;
+    display: block;
+    text-align: center;
   }
 
   nav {
@@ -54,5 +61,28 @@ const { currentPath } = Astro.props;
     align-items: center;
     height: 6rem;
     margin: auto auto 4rem auto;
+    text-align: center;
 	}
+
+  nav a {
+    color: var(--stone);
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+  }
+
+  nav a.active {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--yellow);
+    text-decoration-thickness: 0.2rem;
+    text-underline-offset: 0.4rem;
+  }
+
+  nav a:focus, nav a:focus-visible {
+    outline: transparent;
+    outline-style: solid;
+    box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
+    transition: box-shadow 0.2s ease-in-out;
+  }
 </style>

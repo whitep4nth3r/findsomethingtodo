@@ -9,18 +9,20 @@ const data = await response.json()
 
 <Layout title="Find Something ToDo" description="TODO">
 	<main>
-		<p>Bored?</p>
-		<p>Want to procrastinate <em>and</em> look productive?</p>
+		<p class="bored">Bored?</p>
+		<p class="want_to">Want to procrastinate <em>and</em> <span>look productive?</span></p>
 		<h1>Find Something ToDo</h1>
 
-		<h2>What people are ToDoing</h2>
+		<h2>What people are currently ToDoing</h2>
 
 		<ToDos todos={data.todos} limit="9" client:load />
 
-		<h3>Want to join the party?</h3>
+		<div class="ctas">
+			<h3>Want to join the party?</h3>
 
-		<a href="/add">Add your ToDo</a>
-		<a href="/browse">Browse all ToDos</a>
+			<a href="/add">Add your ToDo</a>
+			<a href="/browse">Browse all ToDos</a>
+		</div>
 	
 	</main>
 </Layout>
@@ -29,4 +31,58 @@ const data = await response.json()
 	a {
 		display: block;
 	}
+
+	.bored {
+		font-size: 2rem;
+		text-decoration: underline;
+		text-underline-offset: 0.5rem;
+		text-decoration-style: wavy;
+		text-decoration-color: var(--green-light);
+		margin-bottom: 2rem;
+	}
+
+	.want_to {
+		margin-bottom: 2rem;
+	}
+
+	.want_to span {
+		display: inline-block;
+		margin-left: 0.75rem;
+		text-decoration: underline;
+		text-underline-offset: 0.5rem;
+		text-decoration-style: wavy;
+		text-decoration-color: var(--yellow);
+	}
+
+	.ctas {
+		margin-bottom: 4rem;
+	}
+
+	h3 {
+		text-align: center;
+		font-size: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	a {
+		text-align: center;
+		font-size: 1.6rem;
+		color: var(--stone);
+		text-decoration: underline;
+		text-underline-offset: 0.5rem;
+		text-decoration-style: wavy;
+		text-decoration-color: var(--green-mid);
+		display: block;
+		width: max-content;
+		margin: 0 auto 1.5rem auto;
+		border-radius: 1rem;
+	}
+
+	a:focus,
+  a:focus-visible {
+  outline: transparent;
+  outline-style: solid;
+  box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
 </style>

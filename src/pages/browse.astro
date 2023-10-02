@@ -26,14 +26,10 @@ const data = await response.json()
 		<!-- <p>Congrats! Your ToDo will be done by somebody else.</p> -->
 		<!-- end if success message -->
 		<div data-signed-in>
-			<p>Bored?</p>
-			<p>Want to procrastinate <em>and</em> look productive?</p>
 			<h1>Browse Something ToDo</h1>
+			<p>Click it, if you did it!</p>
 
-			<h2>What people are ToDoing</h2>
-			<p>Click it, if you did it.</p>
-
-			<a href="/add">Add a ToDo</a>
+			<a href="/add" class="add">Add a ToDo</a>
 
 			<ToDos todos={data.todos} limit={null} client:load />
 		</div>
@@ -44,5 +40,30 @@ const data = await response.json()
 <style>
 	[data-signed-in] {
 		display: none;
+	}
+
+	p {
+		margin-bottom: 2rem;
+		font-style: italic;
+	}
+
+	.add {
+		background-color: var(--stone);
+		color: var(--red);
+		font-family: var(--font-heading);
+		font-size: 2rem;
+		text-decoration: none;
+		padding: 0.5rem 1rem;
+		border-radius: 2rem;
+		text-align: center;
+		display: block;
+		margin-bottom: 2rem;
+	}
+
+	.add:focus, .add:focus-visible {
+		outline: transparent;
+    outline-style: solid;
+    box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
+    transition: box-shadow 0.2s ease-in-out;
 	}
 </style>
