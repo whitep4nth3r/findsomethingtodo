@@ -28,10 +28,6 @@ const { pathname } = Astro.url;
 </html>
 
 <style is:global>
-	
-</style>
-
-<style is:global>
 	:root {
 		--green-dark: #2d5134;
 		--green-mid: #6a994e;
@@ -52,18 +48,22 @@ const { pathname } = Astro.url;
 
 	html {
 		font-size: 100%;
+		background-color: var(--green-dark);
+		background-image: url("leaves.svg");
+		background-size: cover;
+		background-repeat: no-repeat;
 	}
 
 	body {
 		max-width: 700px;
-		margin:auto;
-		padding: clamp(1rem, 2vw, 2rem);
-		background-color: var(--green-dark);
+		margin: auto;
+		background-color: rgba(45, 81, 52, 0.95);
 		color: var(--stone);
 		font-family: var(--font-body);
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
+		padding: clamp(1rem, 2vw, 2rem);
 	}
 
 	h1 {
@@ -71,8 +71,8 @@ const { pathname } = Astro.url;
 	}
 	
 	h1 {
-		font-size: 2.8rem;
-		line-height: 1.8;
+		font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+		margin-bottom: 1rem;
 	}
 
 	p {
@@ -85,6 +85,7 @@ const { pathname } = Astro.url;
 
 	footer p {
 		font-size: 0.8rem;
+		line-height: 1.4;
 		text-align: center;
 	}
 

@@ -43,10 +43,28 @@ const { currentPath } = Astro.props;
 </header>
 
 <style is:global>
+  .cl-userButtonPopoverCard {
+    background-color: var(--stone);
+    color: var(--green-dark);
+  }
+
+  .cl-userPreviewMainIdentifier {
+    font-family: var(--font-heading);
+  }
+  
+  .cl-userButtonPopoverActionButton span, 
+  .cl-userPreviewSecondaryIdentifier, 
+  .cl-userButtonPopoverActionButtonIconBox svg, 
+  .cl-userButtonPopoverFooter p,
+  .cl-userButtonPopoverFooter a {
+    color: var(--green-dark);
+  }
+
+
   nav a {
     color: var(--stone);
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
     border-radius: 0.5rem;
   }
 
@@ -58,7 +76,10 @@ const { currentPath } = Astro.props;
     text-underline-offset: 0.4rem;
   }
 
-  nav a:focus, nav a:focus-visible {
+  nav a:focus, 
+  nav a:focus-visible, 
+  .cl-userButtonTrigger:focus-visible, 
+  .cl-userButtonTrigger:focus {
     outline: transparent;
     outline-style: solid;
     box-shadow: var(--green-dark) 0 0 0 0.08rem, var(--green-light) 0 0 0 0.32rem;
@@ -84,7 +105,7 @@ const { currentPath } = Astro.props;
 		gap: 1rem;
 		justify-content: space-between;
     align-items: center;
-    height: 6rem;
+    height: 4rem;
     margin: auto auto 4rem auto;
     text-align: center;
 	}

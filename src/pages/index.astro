@@ -10,7 +10,7 @@ const data = await response.json()
 <Layout title="Find Something ToDo" description="Bored? Want to procrastinate and look productive? Find something ToDo. And tell others what to do.">
 	<main>
 		<p class="bored">Bored?</p>
-		<p class="want_to">Want to procrastinate <em>and</em> <span>look productive?</span></p>
+		<p class="want_to">Want to procrastinate <span><em>and</em> look productive?</span></p>
 		<h1>Find Something ToDo</h1>
 
 		<h2>What people are currently ToDoing</h2>
@@ -44,8 +44,6 @@ const data = await response.json()
 	}
 
 	.want_to span {
-		display: inline-block;
-		margin-left: 0.75rem;
 		text-decoration: underline;
 		text-underline-offset: 0.5rem;
 		text-decoration-style: wavy;
