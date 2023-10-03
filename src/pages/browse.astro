@@ -8,7 +8,6 @@ const data = await response.json()
 
 const { url } = Astro;
 const success = url.searchParams.get("success");
-
 ---
 
 <Layout title="Browse Find Something ToDo" description="TODO">
@@ -24,21 +23,18 @@ const success = url.searchParams.get("success");
 			document.querySelector('[data-signed-in]').style.display = "block";
 		}
 	</script>
+
 	<main>
 		{success && (
 			<p>Congrats! Your ToDo will be done by somebody else.</p>
 		)}
 
-
 		<div data-signed-in>
 			<h1>Browse Something ToDo</h1>
 			<p>Click it, if you did it!</p>
-
 			<a href="/add" class="add">Add a ToDo</a>
-
 			<ToDos todos={data.todos} limit={null} client:load />
 		</div>
-	
 	</main>
 </Layout>
 
