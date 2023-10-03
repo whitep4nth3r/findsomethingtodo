@@ -18,13 +18,14 @@ const randomYays = [
 ];
 
 export const ToDo = ({ todo, showActions }) => {
-  const { _id, description, times_done, date_created, user_id } = todo;
+  const { _id, description, times_done, date_created, user_id, flagged } = todo;
 
   const [timesDoneNo, setTimesDoneNo] = useState(times_done);
   const [isLoading, setIsLoading] = useState(false);
   const [buttonText, setButtonText] = useState("I did this");
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [done, setDone] = useState(false);
+  const [isFlagging, setIsFlagging] = useState(false);
+  const [isFlagged, setIsFlagged] = useState(false);
 
   async function increment() {
     setIsLoading(true);
@@ -44,19 +45,41 @@ export const ToDo = ({ todo, showActions }) => {
     setButtonDisabled(true);
   }
 
+  async function report() {
+    setIsFlagging(true);
+
+    const response = await fetch("/api/flag-todo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: _id }),
+    });
+
+    const data = await response.json();
+
+    if (data.success === true) {
+      setIsFlagged(true);
+    }
+  }
+
   return (
-    <>
-      <div className={Styles.topRow}>
-        <p className={Styles.description}>{description}</p>
-        <p className={Styles.completed}>Completed {timesDoneNo} times</p>
-        {showActions && (
-          <button disabled={buttonDisabled} className={Styles.done} onClick={(e) => increment()}>
-            {isLoading ? "Doing..." : ""}
-            {!isLoading ? buttonText : ""}
-          </button>
-        )}
+    !isFlagged && (
+      <div className={`${Styles.todo} ${isFlagging ? Styles.isFlagging : ""}`}>
+        <div className={Styles.topRow}>
+          <p className={Styles.description}>{description}</p>
+          <p className={Styles.completed}>Completed {timesDoneNo} times</p>
+          {showActions && (
+            <button disabled={buttonDisabled} className={Styles.done} onClick={(e) => increment()}>
+              {isLoading ? "Doing..." : ""}
+              {!isLoading ? buttonText : ""}
+            </button>
+          )}
+        </div>
+        <button onClick={(e) => report()} className={Styles.report}>
+          Report
+        </button>
       </div>
-      <button className={Styles.report}>Report TODO</button>
-    </>
+    )
   );
 };

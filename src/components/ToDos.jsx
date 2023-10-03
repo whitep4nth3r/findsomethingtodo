@@ -14,7 +14,6 @@ export function ToDos({ todos, limit }) {
       const session = await getSession();
       const userId = session !== null ? session.user.id : "12345";
       setUserId(userId);
-      console.log("userId", userId);
 
       if (session !== null) {
         setShowActions(true);
