@@ -1,3 +1,5 @@
+![Bored? Want to procrastinate and look productive? Find Something ToDo.](og.png)
+
 # Find Something TODO
 
 Bored? Want to procrastinate and look productive?
