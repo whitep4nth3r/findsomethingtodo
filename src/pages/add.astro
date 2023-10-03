@@ -25,12 +25,14 @@ import Layout from '../layouts/Layout.astro';
 			import Filter from "bad-words";
 			const form = document.querySelector('form');
 			const warning = document.querySelector('[data-warning]');
+			const error = document.querySelector('[data-error]');
 
 			const input = document.querySelector("input");
 
 			input.addEventListener("keyup", (e) => {
 				if (e.target.value === "") {
 					warning.style.display = "none";
+					error.style.display = "none";
 				}
 			})
 
@@ -50,6 +52,14 @@ import Layout from '../layouts/Layout.astro';
 						method: "POST",
 						body: formData,
 					});
+
+					const data = await response.json()
+
+					if (data.success === true) {
+						window.location.href = "/browse?success=true";
+					} else {
+						error.style.display = "block";
+					}
 				}
 			});
 
@@ -63,6 +73,7 @@ import Layout from '../layouts/Layout.astro';
 				<label for="todo">Your ToDo, make it <em>productive!</em></label>
 				<input id="todo" name="todo" type="text" value="" placeholder="Be the best version of yourself" required>
 				<p data-warning>⚠️ Please don't use bad words!</p>
+				<p data-error>Sorry, something went wrong. Please try again.</p>
 				<input type="hidden" name="user_id" value="" data-user-id>
 				<button type="submit">Add ToDo</button>
 			</form>
@@ -77,7 +88,7 @@ import Layout from '../layouts/Layout.astro';
 		display: none;
 	}
 
-	[data-warning] {
+	[data-warning], [data-error] {
 		display: none;
 		color: #ffffff;
 		background-color: var(--red);

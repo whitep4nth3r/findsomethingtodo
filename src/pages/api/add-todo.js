@@ -28,6 +28,28 @@ export const POST = async ({ request, redirect }) => {
   const response = await todos.insertOne(newTodo);
 
   if (response.acknowledged === true) {
-    return redirect("/browse?success=true", 302);
+    return new Response(
+      JSON.stringify({
+        success: true,
+      }),
+      {
+        status: 201,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
   }
+
+  return new Response(
+    JSON.stringify({
+      success: false,
+    }),
+    {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  );
 };
