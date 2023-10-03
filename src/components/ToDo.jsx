@@ -68,7 +68,9 @@ export const ToDo = ({ todo, showActions }) => {
       <div className={`${Styles.todo} ${isFlagging ? Styles.isFlagging : ""}`}>
         <div className={Styles.topRow}>
           <p className={Styles.description}>{description}</p>
-          <p className={Styles.completed}>Completed {timesDoneNo} times</p>
+          <p className={Styles.completed}>
+            Completed {timesDoneNo} {timesDoneNo === 1 ? "time" : "times"}
+          </p>
           {showActions && (
             <button disabled={buttonDisabled} className={Styles.done} onClick={(e) => increment()}>
               {isLoading ? "Doing..." : ""}
