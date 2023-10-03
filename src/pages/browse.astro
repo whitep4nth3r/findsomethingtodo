@@ -9,7 +9,6 @@ const data = await response.json()
 const { url } = Astro;
 const success = url.searchParams.get("success");
 
-
 ---
 
 <Layout title="Browse Find Something ToDo" description="TODO">
@@ -26,8 +25,9 @@ const success = url.searchParams.get("success");
 		}
 	</script>
 	<main>
-
-		<p>Congrats! Your ToDo will be done by somebody else.</p>
+		{success && (
+			<p>Congrats! Your ToDo will be done by somebody else.</p>
+		)}
 
 
 		<div data-signed-in>
