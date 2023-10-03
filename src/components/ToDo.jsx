@@ -78,9 +78,9 @@ export const ToDo = ({ todo, showActions }) => {
             </button>
           )}
         </div>
-        <button onClick={(e) => report()} className={Styles.report}>
+        {/* <button onClick={(e) => report()} className={Styles.report}>
           Report
-        </button>
+        </button> */}
       </div>
     )
   );
