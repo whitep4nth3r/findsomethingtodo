@@ -11,7 +11,7 @@ async function initDatabase() {
 export async function GET({ params, request }) {
   const mongo = await initDatabase();
   const todos = mongo.db("findsomethingtodo").collection("todos");
-  const todosNotFlagged = await todos.find({ flagged: false }).sort({ _id: -1 }).toArray();
+  const todosNotFlagged = await todos.find({ flagged: false }).sort({ date_created: -1 }).toArray();
 
   return new Response(
     JSON.stringify({
